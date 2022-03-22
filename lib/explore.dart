@@ -38,33 +38,89 @@ class ExploreScr extends StatelessWidget {
           )
         ],
       ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              width: width(context),
-              margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-              height: height(context) * 0.3,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage(hottest),
-                ),
+      body: Column(
+        children: [
+          Container(
+            width: width(context),
+            margin: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+            height: height(context) * 0.3,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(10),
+              image: DecorationImage(
+                fit: BoxFit.cover,
+                image: AssetImage(hottest),
               ),
             ),
+          ),
+          Expanded(
+            child: Container(
+              // height: height(context) * 0.4,
+              margin: EdgeInsets.only(bottom: 0),
+              child: ListView.builder(
+                controller: ctrl.controller,
+                itemCount: ExploreModel.genratedList.length,
+                itemBuilder: (context, index) {
+                  return Column(
+                    children: [
+                      ExploreContents(
+                        data: ExploreModel.genratedList[index],
+                      ),
+                      index == 0 ? Container() : MusicAudio(),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MusicAudio extends StatelessWidget {
+  const MusicAudio({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: width(context),
+      padding: EdgeInsets.only(left: 10, right: 10),
+      margin: EdgeInsets.only(bottom: 10),
+      color: Colors.white,
+      child: Padding(
+        padding: const EdgeInsets.only(top: 5),
+        child: Row(
+          children: [
             Container(
-                height: height(context) * 0.6,
-                margin: EdgeInsets.only(bottom: 20),
-                child: ListView.builder(
-                  controller: ctrl.controller,
-                  itemCount: ExploreModel.genratedList.length,
-                  itemBuilder: (context, index) {
-                    return ExploreContents(
-                      data: ExploreModel.genratedList[index],
-                    );
-                  },
-                )),
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  Icon(Icons.fast_rewind, color: black),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                    child: CircleAvatar(
+                      backgroundImage: AssetImage(fireboyApollo),
+                    ),
+                  ),
+                  Icon(Icons.fast_forward, color: black),
+                ],
+              ),
+            ),
+            Spacer(
+              flex: 1,
+            ),
+            Container(
+              width: 70,
+              child: Text(
+                "Fendi - Blagbones ft Joeboy",
+                style: textTheme(context).overline,
+              ),
+            ),
+            IconButton(
+                onPressed: () {}, icon: Icon(Icons.cancel, color: black)),
           ],
         ),
       ),
@@ -120,7 +176,7 @@ class ExploreContents extends StatelessWidget {
           Container(
               height: height(context) * 0.3,
               width: width(context),
-              margin: EdgeInsets.only(bottom: 20),
+              margin: EdgeInsets.only(bottom: 0),
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: data.topicMusics.length,
@@ -139,45 +195,40 @@ class MusicAlbums extends StatelessWidget {
   final ExploreMusics musics;
   @override
   Widget build(BuildContext context) {
-    final containerHeight = height(context) * 0.3;
-    final containerWidth = width(context) * 0.3;
+    final containerHeight = 200.0;
+    final containerWidth = 160.0;
     return InkWell(
       onLongPress: () {
         /* return Navigator.pushNamed(context, AirRoutesName.moneyRaitingScren,
             arguments: Size(containerWidth, containerHeight)); */
       },
-      child: Stack(
-        children: [
-          Container(
-            height: containerHeight,
-            width: containerWidth,
-            margin: EdgeInsets.only(right: 10),
-            decoration: BoxDecoration(
-                image: new DecorationImage(
-                  //this is always default as one
-                  image: AssetImage(musics.imagePicture),
-                  fit: BoxFit.cover,
-                ),
-                //color: Colors.yellow,
-                borderRadius: BorderRadius.circular(15)),
-            child: Align(
-              alignment: Alignment(0.1, 0.70),
-              child: InkWell(
-                onTap: () {
-                  // print('object');
-                },
-                child: InkWell(
-                    onTap: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 5),
-                      child: MusicNameContainer(
-                        musicName: musics.imagesname,
-                      ),
-                    )),
-              ),
+      child: Container(
+        height: containerHeight,
+        width: containerWidth,
+        padding: EdgeInsets.symmetric(horizontal: 24, vertical: 30),
+        alignment: Alignment.bottomCenter,
+        margin: EdgeInsets.only(),
+        decoration: BoxDecoration(
+            image: new DecorationImage(
+              //this is always default as one
+              image: AssetImage(musics.imagePicture),
+              fit: BoxFit.fill,
             ),
-          ),
-        ],
+            //color: Colors.yellow,
+            borderRadius: BorderRadius.circular(15)),
+        child: InkWell(
+          onTap: () {
+            // print('object');
+          },
+          child: InkWell(
+              onTap: () {},
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 5),
+                child: MusicNameContainer(
+                  musicName: musics.imagesname,
+                ),
+              )),
+        ),
       ),
     );
   }
@@ -196,9 +247,7 @@ class MusicNameContainer extends StatelessWidget {
     return InkWell(
       onTap: () {},
       child: Container(
-        height: 25,
-        width: 120,
-        padding: EdgeInsets.symmetric(horizontal: 7),
+        padding: EdgeInsets.symmetric(horizontal: 7, vertical: 5),
         decoration: BoxDecoration(
             color: Colors.white.withOpacity(0.4),
             borderRadius: BorderRadius.circular(15)),

@@ -45,48 +45,8 @@ class BottomSheetScreen extends StatelessWidget {
               isVissible: controller.isVisible.value),
         ),
 
-        floatingActionButton: Container(
-          width: width(context),
-          margin: EdgeInsets.only(bottom: 56.5),
-          child: FloatingActionButton(
-            elevation: 0.0,
-            onPressed: () {},
-            child: Row(
-              children: [
-                Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Row(
-                    children: [
-                      Icon(Icons.fast_rewind, color: black),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10),
-                        child: CircleAvatar(
-                          backgroundImage: AssetImage(fireboyApollo),
-                        ),
-                      ),
-                      Icon(Icons.fast_forward, color: black),
-                    ],
-                  ),
-                ),
-                Spacer(
-                  flex: 1,
-                ),
-                Container(
-                  width: 70,
-                  child: Text(
-                    "Fendi - Blagbones ft Joeboy",
-                    style: textTheme(context).overline,
-                  ),
-                ),
-                IconButton(
-                    onPressed: () {}, icon: Icon(Icons.cancel, color: black)),
-              ],
-            ),
-            backgroundColor: white,
-            shape: RoundedRectangleBorder(),
-          ),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+        // floatingActionButton:
+        // floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       );
     });
   }
